@@ -15,6 +15,7 @@ build:
   # To build your package, clone it into ros2_ws/src, and add it's name to packages-select below.
   packages-select:
     - synchros2
+    - camera_latency_benchmark
   mixin:
     # Multithreaded linker to speed up linking step during compilation
     - lld
