@@ -9,4 +9,4 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/ros2-camera-latency-benchmark"]
+packages = ["src/ros2_camera_latency_benchmark"]
