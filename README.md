@@ -22,8 +22,8 @@ Notes:
 - The matrix script uses separate processes (no composition, no intra-process).
 - Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
 
-### Result (all the numbers are in ms):
-These numbers come from a 10s run at 640x480 @ 30 FPS with separate processes. Latency is end-to-end from publish stamp to receive time and includes compression/decompression for the compressed cases.
+### Result:
+These numbers come from a 10s run at 640x480 @ 30 FPS with separate processes. Latency is end-to-end from publish stamp to receive time and includes compression/decompression for the compressed cases (all the numbers are in ms).
 
 | case              | count | mean  | p50   | p95   | p99   | min   | max   |
 | ----------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
