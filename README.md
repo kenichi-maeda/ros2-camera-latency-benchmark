@@ -37,7 +37,7 @@ pixi r build-ros
 ```
 
 
-#### Camera Latency Benchmark Workflow
+### Camera Latency Benchmark Workflow
 
 ```bash
 # 1) Activate ROS 2 environment
@@ -57,7 +57,7 @@ Notes:
 - The matrix script uses separate processes (no composition, no intra-process).
 - Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
 
-Example summary output:
+#### Result (all the numbers are in ms):
 ```
 case                count      mean       p50       p95       p99       min       max
 -------------------------------------------------------------------------------------
@@ -66,11 +66,6 @@ raw                   280     0.240     0.233     0.294     0.340     0.200     
 shared_compressed     293    11.564    11.392    16.974    19.411     4.223    50.300
 shared_raw            294     0.578     0.575     0.642     0.667     0.515     0.983
 ```
-
-## Community Contributions
-
-If something doesn't work, please create a GitHub issue!
-PRs are always welcome!
 
 ## Testing and Linting
 
