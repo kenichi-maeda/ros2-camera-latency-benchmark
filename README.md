@@ -2,6 +2,35 @@
 
 [![Pre-commit](https://github.com/kenichi-maeda/ros2-camera-latency-benchmark/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/kenichi-maeda/ros2-camera-latency-benchmark/actions/workflows/pre-commit.yaml) [![Test](https://github.com/kenichi-maeda/ros2-camera-latency-benchmark/actions/workflows/test.yaml/badge.svg)](https://github.com/kenichi-maeda/ros2-camera-latency-benchmark/actions/workflows/test.yaml)
 
+## Camera Latency Benchmark Workflow
+
+```bash
+# 1) Activate ROS 2 environment
+pixi s -e ros2-cpu
+
+# 2) Build the ROS 2 workspace
+pixi r build-ros
+
+# 3) Run eval
+scripts/run_benchmark_matrix.bash
+
+# 4) Summarize results
+scripts/summarize_benchmark_csv.py benchmark_results_YYYYMMDD_HHMMSS
+```
+
+Notes:
+- The matrix script uses separate processes (no composition, no intra-process).
+- Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
+
+### Result (all the numbers are in ms):
+These numbers come from a 10s run at 640x480 @ 30 FPS with separate processes. Latency is end-to-end from publish stamp to receive time and includes compression/decompression for the compressed cases.
+
+| case              | count | mean  | p50   | p95   | p99   | min   | max   |
+| ----------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| compressed        | 294   | 12.347| 11.861| 17.304| 22.252| 5.858 | 76.738|
+| raw               | 280   | 0.240 | 0.233 | 0.294 | 0.340 | 0.200 | 0.434 |
+| shared_compressed | 293   | 11.564| 11.392| 16.974| 19.411| 4.223 | 50.300|
+| shared_raw        | 294   | 0.578 | 0.575 | 0.642 | 0.667 | 0.515 | 0.983 |
 
 ## Quick Start
 
@@ -36,36 +65,6 @@ pixi r build-ros
 # Genesis + Isaac Lab environments are still a bit flaky despite my best efforts ;(
 ```
 
-
-### Camera Latency Benchmark Workflow
-
-```bash
-# 1) Activate ROS 2 environment
-pixi s -e ros2-cpu
-
-# 2) Build the ROS 2 workspace
-pixi r build-ros
-
-# 3) Run the 4-way benchmark matrix (raw / compressed / shared raw / shared compressed)
-scripts/run_benchmark_matrix.bash
-
-# 4) Summarize results
-scripts/summarize_benchmark_csv.py benchmark_results_YYYYMMDD_HHMMSS
-```
-
-Notes:
-- The matrix script uses separate processes (no composition, no intra-process).
-- Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
-
-#### Result (all the numbers are in ms):
-```
-case                count      mean       p50       p95       p99       min       max
--------------------------------------------------------------------------------------
-compressed            294    12.347    11.861    17.304    22.252     5.858    76.738
-raw                   280     0.240     0.233     0.294     0.340     0.200     0.434
-shared_compressed     293    11.564    11.392    16.974    19.411     4.223    50.300
-shared_raw            294     0.578     0.575     0.642     0.667     0.515     0.983
-```
 
 ## Testing and Linting
 
