@@ -36,11 +36,36 @@ pixi r build-ros
 # Genesis + Isaac Lab environments are still a bit flaky despite my best efforts ;(
 ```
 
-### Run Commands
 
-All run commands must occur from within the project parent folder or Docker image home directory to function correctly.
+#### Camera Latency Benchmark Workflow
 
-Here is where to put the entrypoints your user may care about.
+```bash
+# 1) Activate ROS 2 environment
+pixi s -e ros2-cpu
+
+# 2) Build the ROS 2 workspace
+pixi r build-ros
+
+# 3) Run the 4-way benchmark matrix (raw / compressed / shared raw / shared compressed)
+scripts/run_benchmark_matrix.bash
+
+# 4) Summarize results
+scripts/summarize_benchmark_csv.py benchmark_results_YYYYMMDD_HHMMSS
+```
+
+Notes:
+- The matrix script uses separate processes (no composition, no intra-process).
+- Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
+
+Example summary output:
+```
+case                count      mean       p50       p95       p99       min       max
+-------------------------------------------------------------------------------------
+compressed            294    12.347    11.861    17.304    22.252     5.858    76.738
+raw                   280     0.240     0.233     0.294     0.340     0.200     0.434
+shared_compressed     293    11.564    11.392    16.974    19.411     4.223    50.300
+shared_raw            294     0.578     0.575     0.642     0.667     0.515     0.983
+```
 
 ## Community Contributions
 
