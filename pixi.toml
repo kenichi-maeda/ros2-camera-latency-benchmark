@@ -1,6 +1,6 @@
 [workspace]
 channels = ["https://prefix.dev/conda-forge"]
-name = "TEMPLATE"
+name = "ros2-camera-latency-benchmark"
 platforms = ["linux-64"]
 version = "0.1.0"
 # Map conda pywin32 to satisfy pypi pywin32 requirement (isaacsim needs pywin32 but it's Windows-only on PyPI)

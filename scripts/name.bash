@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 fi
 
 NEW_NAME="$1"
-OLD_NAME="TEMPLATE"
+OLD_NAME="ros2-camera-latency-benchmark"
 
 # Validate project name (lowercase, alphanumeric, hyphens, underscores)
 if [[ ! "$NEW_NAME" =~ ^[a-z0-9_-]+$ ]]; then
@@ -21,7 +21,7 @@ echo "Renaming project from '$OLD_NAME' to '$NEW_NAME'..."
 # Replace all occurrences in files
 find . -type f -not -path "./.git/*" -exec sed -i "s/$OLD_NAME/$NEW_NAME/g" {} +
 
-# Robustly rename directories and files named TEMPLATE (case-sensitive), including nested
+# Robustly rename directories and files named ros2-camera-latency-benchmark (case-sensitive), including nested
 find . -depth -name "$OLD_NAME" | while read path; do
     dir=$(dirname "$path")
     newpath="$dir/$NEW_NAME"
