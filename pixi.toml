@@ -158,6 +158,9 @@ build-ros = "colcon build"
 [feature.ros2.target.unix.activation]
 scripts = ["ros2_ws/install/setup.bash", "scripts/config-ros2-colcon.bash"]
 
+[feature.ros2.pypi-dependencies]
+dora-rs-cli = ">=0.4.1, <0.5"
+
 ### Isaac Sim Environment-----------------------------------------------------------------------
 # Warning; not as compatible as the other environments; use with caution
 # Isaac Sim 5.1.0 now supports Python 3.11!
