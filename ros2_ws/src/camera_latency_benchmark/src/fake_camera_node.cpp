@@ -18,6 +18,7 @@ FakeCameraNode::FakeCameraNode(const rclcpp::NodeOptions & options)
   fps_ = declare_parameter<double>("fps", 30.0);
   frame_id_ = declare_parameter<std::string>("frame_id", "camera");
   encoding_ = declare_parameter<std::string>("encoding", "rgb8");
+  output_topic_ = declare_parameter<std::string>("output_topic", "image");
   qos_depth_ = declare_parameter<int>("qos_depth", 10);
   qos_reliability_ = declare_parameter<std::string>("qos_reliability", "best_effort");
 
@@ -29,7 +30,7 @@ FakeCameraNode::FakeCameraNode(const rclcpp::NodeOptions & options)
     qos.reliability = RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT;
   }
 
-  publisher_ = image_transport::create_publisher(this, "image", qos);
+  publisher_ = image_transport::create_publisher(this, output_topic_, qos);
 
   initialize_message();
 

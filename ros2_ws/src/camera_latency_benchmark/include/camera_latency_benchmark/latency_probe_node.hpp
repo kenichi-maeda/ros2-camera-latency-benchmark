@@ -29,6 +29,7 @@ private:
   std::ofstream csv_;
 
   std::string transport_;
+  std::string input_topic_;
   int qos_depth_;
   std::string qos_reliability_;
   int stats_every_;

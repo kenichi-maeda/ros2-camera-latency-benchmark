@@ -1,0 +1,3 @@
+nodes:
+  - id: dora_ros_bridge
+    path: dora_ros_bridge.py

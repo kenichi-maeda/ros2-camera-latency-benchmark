@@ -28,6 +28,7 @@ private:
   sensor_msgs::msg::Image msg_;
   std::string frame_id_;
   std::string encoding_;
+  std::string output_topic_;
 
   int width_;
   int height_;

@@ -14,6 +14,8 @@ def generate_launch_description():
     width = LaunchConfiguration("width")
     height = LaunchConfiguration("height")
     fps = LaunchConfiguration("fps")
+    publish_topic = LaunchConfiguration("publish_topic")
+    subscribe_topic = LaunchConfiguration("subscribe_topic")
     qos_depth = LaunchConfiguration("qos_depth")
     qos_reliability = LaunchConfiguration("qos_reliability")
     shared_memory = LaunchConfiguration("shared_memory")
@@ -25,12 +27,14 @@ def generate_launch_description():
         "width": width,
         "height": height,
         "fps": fps,
+        "output_topic": publish_topic,
         "qos_depth": qos_depth,
         "qos_reliability": qos_reliability,
     }
 
     probe_params = {
         "transport": transport,
+        "input_topic": subscribe_topic,
         "qos_depth": qos_depth,
         "qos_reliability": qos_reliability,
         "stats_every": stats_every,
@@ -107,6 +111,8 @@ def generate_launch_description():
             DeclareLaunchArgument("width", default_value="640"),
             DeclareLaunchArgument("height", default_value="480"),
             DeclareLaunchArgument("fps", default_value="30.0"),
+            DeclareLaunchArgument("publish_topic", default_value="image"),
+            DeclareLaunchArgument("subscribe_topic", default_value="image"),
             DeclareLaunchArgument("qos_depth", default_value="10"),
             DeclareLaunchArgument("qos_reliability", default_value="best_effort"),
             DeclareLaunchArgument("shared_memory", default_value="false"),

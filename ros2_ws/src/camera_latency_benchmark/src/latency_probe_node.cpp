@@ -30,6 +30,7 @@ LatencyProbeNode::LatencyProbeNode(const rclcpp::NodeOptions & options)
   frame_count_(0)
 {
   transport_ = declare_parameter<std::string>("transport", "raw");
+  input_topic_ = declare_parameter<std::string>("input_topic", "image");
   qos_depth_ = declare_parameter<int>("qos_depth", 10);
   qos_reliability_ = declare_parameter<std::string>("qos_reliability", "best_effort");
   stats_every_ = declare_parameter<int>("stats_every", 100);
@@ -61,7 +62,7 @@ LatencyProbeNode::LatencyProbeNode(const rclcpp::NodeOptions & options)
 
   subscriber_ = image_transport::create_subscription(
     this,
-    "image",
+    input_topic_,
     std::bind(&LatencyProbeNode::on_image, this, std::placeholders::_1),
     transport_,
     qos);
