@@ -96,8 +96,11 @@ run_case "raw" "raw" "false"
 run_case "compressed" "compressed" "false"
 
 start_roudi
-run_case "shared_raw" "raw" "true"
 run_case "shared_compressed" "compressed" "true"
+stop_roudi
+
+start_roudi
+run_case "shared_raw" "raw" "true"
 stop_roudi
 
 echo "Results saved to: $OUTPUT_DIR"
