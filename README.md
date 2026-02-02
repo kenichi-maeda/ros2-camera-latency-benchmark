@@ -12,7 +12,7 @@ pixi s -e ros2-cpu
 pixi r build-ros
 
 # 3) Run eval
-scripts/run_benchmark_matrix.bash
+scripts/run_benchmark_matrix.bash --with-dora
 
 # 4) Summarize results
 scripts/summarize_benchmark_csv.py benchmark_results_YYYYMMDD_HHMMSS
@@ -21,16 +21,20 @@ scripts/summarize_benchmark_csv.py benchmark_results_YYYYMMDD_HHMMSS
 Notes:
 - The matrix script uses separate processes (no composition, no intra-process).
 - Shared-memory runs require `iox-roudi` (the script starts/stops it automatically).
+- You may need to run `pkill -f ros2 || true` if the code gets stuck.
 
 ### Result:
 These numbers come from a 10s run at 640x480 @ 30 FPS with separate processes. Latency is end-to-end from publish stamp to receive time and includes compression/decompression for the compressed cases (all the numbers are in ms).
 
 | case              | count | mean  | p50   | p95   | p99   | min   | max   |
 | ----------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
-| compressed        | 294   | 12.347| 11.861| 17.304| 22.252| 5.858 | 76.738|
-| raw               | 280   | 0.240 | 0.233 | 0.294 | 0.340 | 0.200 | 0.434 |
-| shared_compressed | 293   | 11.564| 11.392| 16.974| 19.411| 4.223 | 50.300|
-| shared_raw        | 294   | 0.578 | 0.575 | 0.642 | 0.667 | 0.515 | 0.983 |
+| raw               | 289   | 0.251 | 0.241 | 0.294 | 0.363 | 0.223 | 0.726 |
+| shared_raw        | 294   | 0.570 | 0.567 | 0.604 | 0.681 | 0.524 | 1.018 |
+| dora_raw          | 257   | 1.247 | 1.238 | 1.397 | 1.517 | 0.979 | 2.331 |
+| compressed        | 294   | 5.777 | 5.291 | 8.637 | 8.683 | 1.876 | 36.387|
+| shared_compressed | 294   | 6.060 | 5.457 | 8.518 | 9.946 | 3.140 | 42.605|
+| dora_compressed   | 294   | 6.499 | 5.712 | 8.984 | 9.969 | 2.345 | 57.946|
+
 
 ## Quick Start
 
